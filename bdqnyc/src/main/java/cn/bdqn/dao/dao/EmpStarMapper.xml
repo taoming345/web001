@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bdqn.dao.EmpStarMapper">
+	<select id="getCount" resultType="Int">
+	select count(*) from tbl_empstar
+	</select>
+	
+	<select id="getEmpStarByUuid" resultType="EmpStar">
+	
+	select * from tbl_empstar where `uuid`=#{uuid}
+	</select>
+	
+	<insert id="addEmpStar" parameterType="EmpStar">
+		insert into tbl_empstar (`uuid`,title,profile,content,picPath,createTime)
+				values(#{uuid},#{title},#{profile},#{content},#{picPath},#{createTime})
+	</insert>
+	
+	<update id="modifyEmpStar" parameterType="EmpStar">
+		update tbl_empstar
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="uuid != null">uuid=#{uuid},</if>
+			<if test="title != null">title=#{title},</if>
+			<if test="profile != null">profile=#{profile},</if>
+			<if test="content != null">content=#{content},</if>
+			<if test="picPath != null">picPath=#{picPath},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+		</trim>
+	</update>
+	
+	<delete id="deleteEmpStarByUuid" parameterType="EmpStar">
+		delete from tbl_empstar where `uuid` = #{uuid}
+	</delete>
+	
+	<select id="getEmpStarList" resultType="EmpStar">
+		select * from tbl_empstar order by createTime DESC limit #{currentPageNo},#{pageSize}
+	</select>
+</mapper>
