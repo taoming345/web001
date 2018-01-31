@@ -89,7 +89,7 @@
 										</li>
 										<li><a href="${pageContext.request.contextPath }/school/list">校园环境维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/schoollifelist/schoollifelist.html">校园生活维护</a>
+										<li><a href="${pageContext.request.contextPath }/schoollife/schoollifelist.html">校园生活维护</a>
 										</li>
 										<li><a href="${pageContext.request.contextPath }/teacherList.html">师资维护</a>
 										</li>
