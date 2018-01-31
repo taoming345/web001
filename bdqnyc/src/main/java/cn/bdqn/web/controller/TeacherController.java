@@ -7,16 +7,12 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,62 +117,28 @@ public class TeacherController {
 	
 	// 跳转至添加页面
 	@RequestMapping(value="/addTeacherInfo.html")
-	public String addTeacher(){
+	public String addTeacher(@ModelAttribute("teacher")Teacher teacher){
 		logger.debug("addTeacherInfo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		return "teacherAdd";
 	}
 	
 	// 添加后保存信息   上传文件
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/addTeacherSave.html",method=RequestMethod.POST)
 	public String addTeacherSave(Teacher teacher,HttpServletRequest request,
-									@RequestParam(value="picPath",required=false) MultipartFile attach){
+			@RequestParam(value="a_picPath",required= false) MultipartFile attach){
 		logger.debug("addTeacherSave<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		String idPicPath = null;
-		boolean flag = ServletFileUpload.isMultipartContent(request);
-		if(flag){
-			FileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload fileUpload = new ServletFileUpload(factory);
-			List<FileItem> list;
-			try {
-				list = fileUpload.parseRequest(request);
-				for (FileItem fileItem : list) {
-					if(fileItem.isFormField()){
-						String name = fileItem.getFieldName();
-						String value = fileItem.getString("UTF-8");
-						if("title".equals(name)){
-							teacher.setTitle(value);
-						}
-						if("profile".equals(name)){
-							teacher.setProfile(value);
-						}
-						if("content".equals(name)){
-							teacher.setContent(value);
-						}
-						if("createTime".equals(name)){
-							teacher.setCreateTime(new Date().getTime());
-						}
-					}else{
-						
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return  "";
-		/*String idPicPath = null;
 		if(!attach.isEmpty()){
-			String path = request.getSession().getServletContext().getRealPath("statics"+File.separator+"uploadfiles"); 
+			String path = "\\statics"+File.separator+"uploadfiles"; //文件存放位置
 			String oldFileName = attach.getOriginalFilename();//原文件名
 			String prefix=FilenameUtils.getExtension(oldFileName);//原文件后缀     
 			int filesize = 500000;
 	        if(attach.getSize() >  filesize){	//上传大小不得超过 500k
-            	request.setAttribute("uploadFileError", " * 上传大小不得超过 500k");
+            	request.setAttribute("uploadFileError",Constants.FILEUPLOAD_ERROR_4);
 	        	return "teacherAdd";
 	        }else if(prefix.equalsIgnoreCase("jpg") || prefix.equalsIgnoreCase("png") 
             		|| prefix.equalsIgnoreCase("jpeg") || prefix.equalsIgnoreCase("pneg")){//上传图片格式不正确
-            	String fileName = System.currentTimeMillis()+RandomUtils.nextInt(1000000)+"_Personal.jpg";  
+            	String fileName = RandomUtils.nextInt(1000000)+".jpg";  
                 File targetFile = new File(path, fileName);  
                 if(!targetFile.exists()){  
                     targetFile.mkdirs();  
@@ -186,12 +148,12 @@ public class TeacherController {
                 	attach.transferTo(targetFile);  
                 } catch (Exception e) {  
                     e.printStackTrace();  
-                    request.setAttribute("uploadFileError", " * 上传失败！");
+                    request.setAttribute("uploadFileError",Constants.FILEUPLOAD_ERROR_2);
                     return "teacherAdd";
                 }  
                 idPicPath = path+File.separator+fileName;
             }else{
-            	request.setAttribute("uploadFileError", " * 上传图片格式不正确");
+            	request.setAttribute("uploadFileError",Constants.FILEUPLOAD_ERROR_3);
             	return "teacherAdd";
             }
 		}
@@ -200,6 +162,6 @@ public class TeacherController {
 		if(teacherService.addTeacher(teacher) > 0){
 			return "redirect:/teacherList.html";
 		}
-		 return "teacherAdd";*/
+		 return "teacherAdd";
 	}
 }
