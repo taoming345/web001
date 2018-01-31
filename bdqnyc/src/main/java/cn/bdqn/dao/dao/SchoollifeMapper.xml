@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bdqn.dao.dao.SchoollifeMapper">
+<select id="getSchoollifeListByPage" resultType="cn.bdqn.entity.Schoollife">
+	select * from tbl_schoollife order by uuid limit #{currentPageNo},#{pageSize}
+</select>
+<select id="getTotalCount" resultType="int">
+	select count(*) from tbl_schoollife
+</select>
+<select id="getSchoollifeList" resultType="cn.bdqn.entity.Schoollife">
+	select * from tbl_schoollife
+	<trim prefix="where" prefixOverrides="and">
+			<if test="uuid != null and uuid != 0">
+				and uuid=#{uuid}
+			</if>
+			<if test="title != null and title != ''">
+				and title like CONCAT ('%',#{title},'%')
+			</if>
+			<if test="profile != null and profile != ''">
+				and profile like CONCAT ('%',#{profile},'%') 
+			</if>
+			<if test="content != null and content != ''">
+				and content like CONCAT ('%',#{content},'%')
+			</if>
+			<if test="picPath != null and picPath != ''">
+				and picPath like CONCAT ('%',#{picPath},'%')
+			</if>
+			<if test="createTime != null and createTime != 0">
+				and createTime = #{createTime}
+			</if>
+		</trim>
+</select>
+<insert id="add" parameterType="cn.bdqn.entity.Schoollife">
+	insert into tbl_schoollife(title,profile,content,picPath,createTime)
+		values(#{title},#{profile},#{content},#{picPath},#{createTime})
+</insert>
+<delete id="delete" parameterType="int">
+	delete from tbl_schoollife where uuid=#{uuid}
+</delete>
+</mapper>
