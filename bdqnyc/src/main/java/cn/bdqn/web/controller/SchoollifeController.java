@@ -35,7 +35,7 @@ public class SchoollifeController {
 	@Resource
 	private SchoollifeService schoollifeService;
 	
-	@RequestMapping(value="/schoollife.html")
+	@RequestMapping(value="/schoollifelist.html")
 	public String getSLifeList(Model model,@RequestParam(value="pageIndex",required=false) String pageIndex){
 		
     	int pageSize = Constants.pageSize;
@@ -73,7 +73,7 @@ public class SchoollifeController {
 		return "schoolLife";
 	}
 	
-	@RequestMapping(value="/schoollife.json",method=RequestMethod.GET)
+	@RequestMapping(value="/schoollifelist.json",method=RequestMethod.GET)
 	@ResponseBody
 	public String getSLifeListJson(Model model,@RequestParam(value="pageIndex",required=false) String pageIndex){
 		
@@ -136,7 +136,7 @@ public class SchoollifeController {
 	public String delete(@RequestParam("uuid")String uuid,Model model){
 		int result = schoollifeService.delete(Integer.parseInt(uuid));
 		if (result>0) {
-			return "redirect:/schoollife/schoollife.html";
+			return "redirect:/schoollife/schoollifelist.html";
 		}else{
 			return "schoolLife";
 		}
@@ -184,7 +184,7 @@ public class SchoollifeController {
 		schoollife.setCreateTime(new Date().getTime());
 		schoollife.setPicPath(idPicPath);
 		if(schoollifeService.add(schoollife)){
-			return "redirect:/schoollife/schoollife.html";
+			return "redirect:/schoollife/schoollifelist.html";
 		}
 		 return "schoollifeadd";
 	}
