@@ -77,21 +77,21 @@
 										<li><a href="javascript:;">个人账户信息维护</a>
 										</li>
 									</ul></li>
-								<li><a><i class="fa fa-edit"></i> APP应用管理<span
+								<li><a><i class="fa fa-edit"></i> 校园管理<span
 										class="fa fa-chevron-down"></span>
 								</a>
 									<ul class="nav child_menu">
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/customer_card.html">客户体验卡维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/CampusInformation/list">校园资讯维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/empStar/list">就业明星维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/school/list">校园环境维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/schoollifelist/schoollifelist.html">校园生活维护</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/dev/flatform/app/list">APP维护</a>
+										<li><a href="${pageContext.request.contextPath }/teacherList.html">师资维护</a>
 										</li>
 									</ul></li>
 							</ul>
