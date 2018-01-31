@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bdqn.dao.dao.CustomerCardMapper">
+	<select id="getAllCustomerCard" resultType="CustomerCard">
+		select * from `tbl_customer_card` order by `uuid` limit #{from},#{pageSize}
+	</select>
+	<select id="getCustomerCardCount" resultType="Int">
+		select count(*) as count from `tbl_customer_card`
+	</select>
+	<insert id="addCustomerCard" parameterType="CustomerCard">
+		insert into `tbl_customer_card`(`name`,`tele`,`qq`,`email`) values (#{name},#{tele},#{qq},#{email})
+	</insert>
+	<delete id="delCustomerCardByUuid" parameterType="Integer">
+		delete from `tbl_customer_card` where `uuid`=#{uuid}
+	</delete>
+</mapper>
