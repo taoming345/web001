@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bdqn.dao.dao.SchoolEnvMapper">
+
+	<select id="getAllEnv" resultType="SchoolEnv">
+		select * from `tbl_schoolEnv` order by uuid limit #{from},#{pageSize}
+	</select>
+	
+	<select id="count" resultType="Integer">
+	
+		select count(*) as count from `tbl_schoolEnv`
+	</select>
+	
+	<delete id="deleteByuuid" parameterType="Integer">
+	
+		delete from `tbl_schoolEnv` where uuid=#{uuid}
+	
+	</delete>
+	
+	<insert id="add" parameterType="SchoolEnv">
+	
+		insert into `tbl_schoolEnv`(`uuid`,`picPath`,`createTime`) values(#{uuid},#{picPath},#{createTime})
+	</insert>
+	
+	
+</mapper>
+
