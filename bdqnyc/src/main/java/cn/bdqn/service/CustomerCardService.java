@@ -1,5 +1,6 @@
 package cn.bdqn.service.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -13,10 +14,7 @@ public interface CustomerCardService {
 	//获取列表总数
 	public int getCustomerCardCount()throws Exception;
 	//添加用户体验卡
-	public int addCustomerCard(@Param(value="name")String name,
-			@Param(value="tele")String tele,
-			@Param(value="qq")String qq,
-			@Param(value="email")String email)throws Exception;
+	public int addCustomerCard(CustomerCard custormerCard)throws Exception;
 	//通过uuid删除用户体验卡
 	public int deleteCustomerCardByUuid(@Param(value="uuid")Integer id)throws Exception;
 }

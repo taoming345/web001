@@ -1,5 +1,6 @@
 package cn.bdqn.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,8 +20,8 @@ public class CustomerCardController {
 	@Resource
 	private CustomerCardService customerCardService;
 	//分页查询
-	@RequestMapping(value="/customer_card.html")
-	public String getAllCustomerCard(Model model,@RequestParam(value="pageIndex",required=false) String pageIndex){
+	@RequestMapping(value="/sys/customer_card.html")
+	public String getAllCustomerCard(CustomerCard customerCard,Model model,@RequestParam(value="pageIndex",required=false) String pageIndex){
 		List<CustomerCard> customerCardList = null;
 		//页面容量
 		int pageSize = 5;
@@ -60,33 +61,31 @@ public class CustomerCardController {
 		model.addAttribute("customerCardList", customerCardList);
 		model.addAttribute("pages", pages);
 		
-		return "test";
+		return "customercard/customercardlist";
 	}
-	@RequestMapping(value="/add.html")
+	@RequestMapping(value="/sys/add.html")
 	public String add(){
-		return "add";
+		return "customercard/customercardadd";
 	}
 	//添加用户体验卡
-	@RequestMapping(value="/addCustomerCard.html")
-	public String addCustomerCard(@RequestParam(value="name") String name,
-			@RequestParam(value="tele") String tele,
-			@RequestParam(value="qq")String qq,
-			@RequestParam(value="email")String email){
+	@RequestMapping(value="/sys/addCustomerCard.html")
+	public String addCustomerCard(CustomerCard customerCard){
+		customerCard.setCreateTime(new Date().getTime());
 		try {
-			customerCardService.addCustomerCard(name, tele, qq, email);
+			customerCardService.addCustomerCard(customerCard);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/customer_card.html";
+		return "redirect:/sys/customer_card.html";
 	}
 	//删除用户体验卡
-	@RequestMapping(value="/delCustomerCard.html")
+	@RequestMapping(value="/sys/delCustomerCard.html")
 	public String delCustomerCard(@RequestParam(value="id")String id){
 		try {
 			customerCardService.deleteCustomerCardByUuid(Integer.parseInt(id));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/customer_card.html";
+		return "redirect:/sys/customer_card.html";
 	}
 }

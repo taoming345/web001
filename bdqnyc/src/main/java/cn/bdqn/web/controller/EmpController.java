@@ -28,15 +28,22 @@ public class EmpController {
 			session.setAttribute(Constants.EMP_SESSION, emp);
 			return "redirect:/sys/main.html";
 		}else{
-			return "login";
+			return "devlogin";
 		}
 	}
 	@RequestMapping(value="/login.html")
 	public String toMain(){
-		return "login";
+		return "devlogin";
 	}
 	@RequestMapping(value="/sys/main.html")
 	public String loginSuccess(){
-		return "success";
+		return "login/main";
+	}
+	//注销
+	@RequestMapping(value="/empLogout.html")
+	public String logout(HttpSession session){
+		//清除session
+		session.removeAttribute(Constants.EMP_SESSION);
+		return "devlogin";
 	}
 }

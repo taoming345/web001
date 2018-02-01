@@ -1,5 +1,6 @@
 package cn.bdqn.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,8 +25,9 @@ public class CustomerCardServiceImpl implements CustomerCardService {
 		return count;
 	}
 
-	public int addCustomerCard(String name, String tele, String qq, String email) throws Exception {
-		int count = customerCardMapper.addCustomerCard(name, tele, qq, email);
+	@Override
+	public int addCustomerCard(CustomerCard custormerCard) throws Exception {
+		int count = customerCardMapper.addCustomerCard(custormerCard);
 		return count;
 	}
 
@@ -33,5 +35,7 @@ public class CustomerCardServiceImpl implements CustomerCardService {
 		int count = customerCardMapper.delCustomerCardByUuid(id);
 		return count;
 	}
+
+	
 
 }
